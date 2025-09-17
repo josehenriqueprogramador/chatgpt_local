@@ -1,5 +1,3 @@
-Perfeito! Aqui está um README detalhado e bem estruturado para o seu projeto `chatgpt_local`, incluindo instruções passo a passo para rodar a aplicação com Docker e usar o Ollama:
-
 ```markdown
 # ChatGPT Local
 
