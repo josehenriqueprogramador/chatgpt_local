@@ -1,65 +1,52 @@
-```markdown
-# ChatGPT Local
+# 🧠 ChatGPT Local com Docker + Ollama
 
-Aplicação web local em Flask que integra com Ollama para criar um ChatGPT privado. Permite digitar perguntas em um formulário e receber respostas geradas pelo modelo Llama2. Dockerizado para fácil deploy e portabilidade, podendo rodar em qualquer máquina com Docker.
+![Docker](https://img.shields.io/badge/Docker-Container-blue) ![Python](https://img.shields.io/badge/Python-3.10-green) ![Flask](https://img.shields.io/badge/Flask-Framework-orange)
 
----
-
-## Funcionalidades
-
-- Chat local com modelo Llama2 via Ollama.
-- Formulário web para enviar perguntas.
-- Respostas exibidas na mesma página.
-- Dockerizado para fácil execução.
+Uma aplicação local de **ChatGPT** usando **Flask** e **Ollama**, totalmente containerizada. Faça perguntas na interface web e receba respostas usando o modelo **Llama2**.
 
 ---
 
-## Pré-requisitos
+## ✨ Funcionalidades
 
-- [Docker](https://www.docker.com/get-started)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- Pelo menos 6 GB de RAM disponível para rodar o modelo Llama2.
-
----
-
-## Estrutura do Projeto
-
-```
-
-chatgpt\_local/
-│
-├─ app.py                 # Código principal Flask
-├─ Dockerfile             # Dockerfile da aplicação
-├─ docker-compose.yml     # Configuração dos containers
-├─ templates/
-│   └─ index.html         # Página web com formulário
-├─ static/
-│   └─ style.css          # Estilo da página
-
-````
+* 🖥 Interface web simples para digitar perguntas
+* 🤖 Respostas via modelo **Llama2** dentro do container Ollama
+* 📦 Totalmente containerizada para fácil execução em qualquer máquina com Docker
+* 🔄 Atualização simples dos containers e do modelo
 
 ---
 
-## Passo a passo
+## ⚠️ Pré-requisitos
 
-### 1. Clonar o projeto
+* [Docker](https://www.docker.com/)
+* [Docker Compose](https://docs.docker.com/compose/)
+* Conexão à internet (para baixar Ollama e o modelo Llama2)
+* **💾 Pelo menos 6 GB de RAM disponíveis** para o container Ollama
+
+> Sem memória suficiente, o modelo **Llama2** não será carregado e retornará erro.
+
+---
+
+## 🚀 Instalação e Uso
+
+1. **Clonar o repositório**
+
 ```bash
 git clone https://github.com/josehenriqueprogramador/chatgpt_local.git
 cd chatgpt_local
-````
+```
 
-### 2. Subir os containers
+2. **Subir os containers**
 
 ```bash
 docker-compose up -d --build
 ```
 
-Isso vai iniciar:
+Isso criará dois containers:
 
-* `chatgpt_local`: aplicação Flask na porta `5000`
-* `ollama`: servidor Ollama na porta `11434`
+* `chatgpt_local` → aplicação Flask
+* `ollama` → servidor Ollama
 
-### 3. Baixar o modelo Llama2 no container Ollama
+3. **Baixar o modelo Llama2 dentro do container Ollama**
 
 ```bash
 docker exec -it ollama /bin/sh
@@ -67,46 +54,63 @@ ollama pull llama2
 exit
 ```
 
-> O modelo precisa ser baixado apenas uma vez.
+> Este passo é obrigatório para que o ChatGPT local funcione.
 
-### 4. Acessar a aplicação
+4. **Acessar a aplicação**
 
-No navegador, abra:
+Abra no navegador:
 
 ```
 http://localhost:5000
 ```
 
-Digite sua pergunta e receba a resposta do modelo Llama2.
+Digite sua pergunta e veja a resposta do ChatGPT.
 
 ---
 
-## Observações
+## 🐳 Usando a imagem do Docker Hub
 
-* Se houver erro de memória, aumente a RAM disponível para Docker.
-* A aplicação usa a rede interna do Docker para se comunicar com Ollama (`http://ollama:11434`).
-* Para parar a aplicação:
-
-```bash
-docker-compose down
-```
-
----
-
-## Docker Hub
-
-Você pode puxar a imagem pronta da aplicação:
+A imagem do ChatGPT local está disponível no Docker Hub:
 
 ```bash
 docker pull josehenriquejardim/chatgpt_local:latest
+docker run -p 5000:5000 josehenriquejardim/chatgpt_local:latest
 ```
 
 ---
 
-## Licença
+## 📂 Estrutura do Projeto
 
-MIT License
+```
+chatgpt_local/
+│
+├─ app.py
+├─ Dockerfile
+├─ docker-compose.yml
+├─ templates/
+│   └─ index.html
+├─ static/
+│   └─ style.css
+```
 
+---
+
+## 💡 Dicas e Observações
+
+* Certifique-se de que o container Ollama está rodando e o modelo Llama2 foi baixado.
+* Ajuste a variável `OLLAMA_HOST` em `app.py` caso queira conectar a outro host ou porta.
+* **Memória mínima de 6 GB é necessária** para rodar Llama2 sem erros.
+* Você pode forçar atualização do modelo usando:
+
+```bash
+docker exec -it ollama /bin/sh
+ollama pull llama2
+```
+
+* Para parar os containers:
+
+```bash
+docker-compose down
 ```
 
 ---
