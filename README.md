@@ -110,8 +110,3 @@ MIT License
 ```
 
 ---
-
-Se você quiser, posso criar **uma versão ainda mais visual** do README, com badges, GIF de funcionamento do chat e links diretos para Docker Hub e GitHub, deixando ele pronto para ser usado como vitrine do projeto.  
-
-Quer que eu faça isso?
-```
