@@ -1,0 +1,19 @@
+﻿version: "3.9"
+services:
+  chatgpt_local:
+    build: .
+    container_name: chatgpt_local
+    ports:
+      - "5000:5000"
+    depends_on:
+      - ollama
+    restart: unless-stopped
+    environment:
+      OLLAMA_HOST: "http://ollama:11434"
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
